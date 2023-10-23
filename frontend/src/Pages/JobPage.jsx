@@ -2,6 +2,8 @@ import React from 'react';
 import {Text,Image ,Button,Link } from '@chakra-ui/react';
 import Styles from "../Styles/Jobs.module.css";
 
+
+
 function JobPage() {
   return (
     <div className={Styles.container}>
