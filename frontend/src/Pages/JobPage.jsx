@@ -8,18 +8,19 @@ import { getTodoSuccessAction } from '../Redux/action';
 
 function JobPage() {
     const [load, setLoad]=useState(false);
+    const [page, setPage]=useState(1);
     const {data}=useSelector((store)=>{
         return store;
     })
     const dispatch=useDispatch();
 
     useEffect(()=>{
-        getData()
-    },[])
+        getData(page)
+    },[page])
 
-    const getData=()=>{
+    const getData=(page)=>{
         setLoad(true);
-        fetch(`https://sapphire-elephant-vest.cyclic.app/job`)
+        fetch(`https://sapphire-elephant-vest.cyclic.app/job?page=${page}&limit=5`)
         .then(res=>res.json())
         .then((res)=>{
             dispatch(getTodoSuccessAction(res))
@@ -33,6 +34,14 @@ function JobPage() {
         })
        }
 
+       const handlePaginetion=(val)=>{
+        if(val==-1 && page<=1){
+            setPage(1);
+        }
+        else{
+            setPage(page+val)
+        }
+       }
 
   return load ? <Text fontSize={'40px'} as={'b'} >Loading...</Text> :(
     <>
@@ -126,9 +135,15 @@ function JobPage() {
         </div>
 
      </div>
-        
     </div>
-                </>
+
+    <div className={Styles.pagination}>
+    <Button colorScheme='teal' size='lg' w='150px' onClick={()=>{handlePaginetion(-1)}}>Prev</Button>
+    <Button colorScheme='teal' variant='ghost' size='lg'>{page}</Button>
+    <Button colorScheme='teal' size='lg'  w='150px' onClick={()=>{handlePaginetion(1)}}>Next</Button>
+    </div>
+                
+    </>
   )
 }
 
