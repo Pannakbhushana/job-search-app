@@ -1,41 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Text,Image ,Button,Link } from '@chakra-ui/react';
 import Styles from "../Styles/Jobs.module.css";
+import {useDispatch,useSelector} from "react-redux";
+import { getTodoSuccessAction } from '../Redux/action';
 
 
 
 function JobPage() {
-  return (
-    <div className={Styles.container}>
+    const [load, setLoad]=useState(false);
+    const {data}=useSelector((store)=>{
+        return store;
+    })
+    const dispatch=useDispatch();
+
+    useEffect(()=>{
+        getData()
+    },[])
+
+    const getData=()=>{
+        setLoad(true);
+        fetch(`https://sapphire-elephant-vest.cyclic.app/job`)
+        .then(res=>res.json())
+        .then((res)=>{
+            dispatch(getTodoSuccessAction(res))
+            setLoad(false);
+            // console.log(res);
+    
+        })
+        .catch((err)=>{
+            console.log(err.message);
+            setLoad(false);
+        })
+       }
+
+
+  return load ? <Text fontSize={'40px'} as={'b'} >Loading...</Text> :(
+    <>
+    <div className={Styles.container} >
      
      <div className={Styles.leftContainer} >
-        <Link href='/jobs/1'>
-        <div className={Styles.leftChild} >
-            <div style={{display:"flex",width:"100%",justifyContent:"space-around"}}>
-                <div style={{width:'70%'}}>
-                    <Text fontSize='20px'  as='b' >Company : Beekin pvt. ltd</Text>  
-                    <Text fontSize='20px' >Role : Backend Engineer</Text>
-                    <Text fontSize='16px' >Experience : 0-1 yr</Text>
-                    <Text fontSize='16px' >Salary : 6 LPA</Text>
-                    <Text fontSize='16px' >Location : Bangaluru</Text>
-                    <Text fontSize='16px' >Posted : 23-10-2023</Text>
-                    <Text fontSize='16px' >Type : Remote</Text>
-                    <Text fontSize='16px' >Tech : HTML ,Css, Reat, javascript</Text>
 
-                </div>
-
-                <div style={{border:"1px solid gray", width:'10%',height:"100px",borderRadius:"3px"}}>
-                    <img src="https://img.naukimg.com/logo_images/groups/v1/1599918.gif" 
-                         alt="" 
-                         style={{width:"100%",height:"100%"}} />
+        {data.length && data.map((el)=>{
+            return  <Link href={`/jobs/${el._id}`} key={el._id}>
+            <div className={Styles.leftChild} >
+                <div style={{display:"flex",width:"100%",justifyContent:"space-around"}}>
+                    <div style={{width:'70%'}}>
+                        <Text fontSize='20px'  as='b' >Company : {el.companyName}</Text>  
+                        <Text fontSize='20px' >Role : {el.role}</Text>
+                        <Text fontSize='16px' >Experience : {el.experience}</Text>
+                        <Text fontSize='16px' >Salary : {el.salary}</Text>
+                        <Text fontSize='16px' >Location : {el.location}</Text>
+                        <Text fontSize='16px' >Posted : {el.date}</Text>
+                        <Text fontSize='16px' >Type : {el.type}</Text>
+                        <Text fontSize='16px' >Tech : {el.skill}</Text>
+    
+                    </div>
+    
+                    <div style={{border:"1px solid gray", width:'10%',height:"100px",borderRadius:"3px"}}>
+                        <img src={el.logourl} 
+                             alt="" 
+                             style={{width:"100%",height:"100%"}} />
+                    </div>
                 </div>
             </div>
-        </div>
-        </Link>
-
-
-        
-        
+            </Link>
+        })}
+       
      </div>
 
      <div className={Styles.rightContainer} >
@@ -98,6 +128,7 @@ function JobPage() {
      </div>
         
     </div>
+                </>
   )
 }
 

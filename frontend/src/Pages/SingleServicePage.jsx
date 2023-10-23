@@ -1,12 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Text,Image ,Button,Link,Box } from '@chakra-ui/react';
 import Styles from "../Styles/Jobs.module.css";
+import {useParams} from "react-router-dom";
 
-
-
+const initState={
+    // companyName:"",
+    aboutCompany:"",
+    companyAddress:"",
+    companyWebsite:"",
+    // role:"",
+    // experience:"",
+    // salary:"",
+    // location:"",
+    // date:"",
+    // type:"",
+    // skill:"",
+    highlights:"",
+    // description:"",
+    industryType:"",
+    department:"",
+    employmentType:"",
+    logourl:"" 
+   }
 
 function SingleServicePage() {
-  return (
+    const [data, setData]=useState({});
+    const [load, setLoad]=useState(false);
+    const {id}=useParams()
+
+    useEffect(()=>{
+        getData(id);
+    },[])
+
+    const getData=(id)=>{
+        setLoad(true);
+        fetch(`https://sapphire-elephant-vest.cyclic.app/job?_id=${id}`)
+        .then(res=>res.json())
+        .then((res)=>{
+            setData(res[0]);
+            setLoad(false);
+            console.log(res[0]);
+    
+        })
+        .catch((err)=>{
+            console.log(err.message);
+            setLoad(false);
+        })
+       }
+    
+  return load ? <Text fontSize={'40px'} as={'b'} >Loading...</Text> :  (
     <div className={Styles.container}>
      
      <div className={Styles.leftContainer} >
@@ -14,21 +56,21 @@ function SingleServicePage() {
         <div className={Styles.leftChild} >
             <div style={{display:"flex",width:"100%",justifyContent:"space-around"}}>
                 <div style={{width:'70%'}}>
-                    <Text fontSize='20px'  as='b' >Company : Beekin pvt. ltd</Text>  
-                    <Text fontSize='20px' >Role : Backend Engineer</Text>
-                    <Text fontSize='16px' >Experience : 0-1 yr</Text>
-                    <Text fontSize='16px' >Salary : 6 LPA</Text>
-                    <Text fontSize='16px' >Location : Bangaluru</Text>
-                    <Text fontSize='16px' >Posted : 23-10-2023</Text>
-                    <Text fontSize='16px' >Type : Remote</Text>
-                    <Text fontSize='16px' >Tech : HTML ,Css, Reat, javascript</Text>
+                <Text fontSize='20px'  as='b' >Company : {data.companyName}</Text>  
+                        <Text fontSize='20px' >Role : {data.role}</Text>
+                        <Text fontSize='16px' >Experience : {data.experience}</Text>
+                        <Text fontSize='16px' >Salary : {data.salary}</Text>
+                        <Text fontSize='16px' >Location : {data.location}</Text>
+                        <Text fontSize='16px' >Posted : {data.date}</Text>
+                        <Text fontSize='16px' >Type : {data.type}</Text>
+                        <Text fontSize='16px' >Tech : {data.skill}</Text>
 
                 </div>
 
-                <div style={{border:"1px solid gray", width:'10%',height:"100px",borderRadius:"3px"}}>
-                    <img src="https://img.naukimg.com/logo_images/groups/v1/1599918.gif" 
+                <div style={{border:"1px solid gray", width:'30%',height:"200px",borderRadius:"5%"}}>
+                    <img src={data.logourl}
                          alt="" 
-                         style={{width:"100%",height:"100%"}} />
+                         style={{width:"100%",height:"100%",borderRadius:"5%"}} />
                 </div>
             </div>
           
@@ -42,9 +84,7 @@ function SingleServicePage() {
         <div className={Styles.leftChild}>
             <Text fontSize='16px'  as='b' >Job description</Text> 
             <Text fontSize='16px' >
-                Wonksknow Technologies India Private Limited, a subsidiary of Wonksknow LLC USA, is 
-               looking for highly energetic and talented candidates for a challenging role as a Campus Ambassador.
-               understanding and promoting College.dev app which is one of Wonksknow LLCs products.
+                {data.description}
              </Text> 
 
              <br />
