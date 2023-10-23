@@ -1,0 +1,45 @@
+.container{
+    border: 0px solid black;
+    margin-top: 2%;
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.leftContainer{
+    border: 0px solid black;
+    width: 68%;
+}
+
+.leftChild{
+    border: 0px solid gray;
+    border-radius: 5px;
+    text-align: left;
+    padding: 10px;
+    width: 100%;
+    margin-top: 2%;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+
+
+
+
+
+
+.rightContainer{
+    border: 0px solid black;
+    width: 30%;
+   
+    min-height: 600px;
+}
+.rightChild{
+    border: 1px solid gray;
+    margin-top: 4%;
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+    min-height: 400px;
+    padding: 20px; 
+}

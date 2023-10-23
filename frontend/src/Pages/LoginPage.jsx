@@ -98,7 +98,7 @@ export default function LoginPage() {
                 align={'start'}
                 justify={'space-between'}>
                 <Checkbox>Remember me</Checkbox>
-                <Link href='/usersignup'><Text color={'blue.400'}>Go to SignUp</Text></Link>
+                <Link href='/usersignup'><Text color={'blue.400'}>Go to SignUp  page</Text></Link>
                 
               </Stack>
               <Button

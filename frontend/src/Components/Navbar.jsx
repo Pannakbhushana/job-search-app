@@ -5,15 +5,15 @@ import {Text  } from '@chakra-ui/react'
 
 const paths=[
 {title:"Jobs",path:"/jobs"},
-{title:"Login/Register",path:"/userlogin"},
-{title:"Employer",path:"/employers"}
+,{title:"Employer",path:"/employers"},
+{title:"Login/Register",path:"/userlogin"}
 ]
 
 function Navbar() {
 
   return (
     <div className={Styles.container}>
-      <NavLink to="/" ><Text fontSize='40px' as='b'   color='white'>Beekin/Jobs</Text></NavLink>
+      <NavLink to="/" ><Text fontSize='40px' as='b'   color='white'>Beekin-Job</Text></NavLink>
       
       {paths.map((el,i)=>{
         return <NavLink key={i} to={el.path} className={({isActive})=>{
