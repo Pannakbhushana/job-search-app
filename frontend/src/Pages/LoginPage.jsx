@@ -15,6 +15,9 @@ import {
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { AuthContext } from '../Components/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
+
 const initState={
     email:"",password:""
 }
@@ -23,13 +26,20 @@ export default function LoginPage() {
     const {state,LoginFromAuth,logoutFromAuth}=useContext(AuthContext);
     const [formState, setFormState]=useState(initState);
     const {email,password}=formState;
+    const [load, setLoad]=useState(false);
+    const navigate=useNavigate()
 
     const handleChange=(e)=>{
         setFormState({...formState, [e.target.name]:e.target.value});
     }
 
     const handleLogin=()=>{
-      postData(formState);
+      if(email && password){
+        postData(formState);
+      }
+      else{
+        alert("Invalid Input")
+      }
         setFormState(initState)
         
     }
@@ -39,8 +49,8 @@ export default function LoginPage() {
     }
    
     const postData=(data)=>{
- 
-      fetch(`https://cute-rose-eagle-cuff.cyclic.cloud/authentication/login`,{
+      setLoad(true)
+      fetch(`https://sapphire-elephant-vest.cyclic.app/userauth/login`,{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
@@ -49,23 +59,29 @@ export default function LoginPage() {
       })
       .then(res=>res.json())
       .then((res)=>{
-          
+        setLoad(false)
           console.log(res);
-          LoginFromAuth()
-          alert("login successful")
+          if(res.token){
+            LoginFromAuth()
+            navigate("/jobs")
+          }
+          else{
+            alert("Wrong Credentials !")
+          }
       })
       .catch((err)=>{
           console.log(err.message);
-  
+          setLoad(false)
       })
      }
 
   return (
+    <><Text fontSize={'40px'} as={'b'} display={load ? "block":"none"}>Loading...</Text>
     <Flex
       minH={'100vh'}
       align={'center'}
       justify={'center'}
-   
+      display={load ? "none":"block"}
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
@@ -129,5 +145,6 @@ export default function LoginPage() {
         </Box>
       </Stack>
     </Flex>
+                  </>
   )
 }

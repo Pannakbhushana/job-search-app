@@ -10,6 +10,7 @@ import {
     Heading,
     Text,
     useColorModeValue,
+    Link
   } from '@chakra-ui/react';
   import { useContext, useState } from 'react';
   import { EmployerAuthContext } from '../Components/EmployerAuthContext';
@@ -34,16 +35,19 @@ import {
   
       const handleSubmit=(e)=>{
           e.preventDefault();
-          EmployerLogin()
-          navigate("/employers")
-        //   postData(formState);
-        //   setFormState(initState)
+          if(formState.username && formState.email && formState.password){
+            postData(formState);
+        }
+        else{
+            alert("Invalid Input")
+        }  
+        setFormState(initState)
       }
   
   
       const postData=(data)=>{
         setLoad(true);
-        fetch(`https://cute-rose-eagle-cuff.cyclic.cloud/authentication/register`,{
+        fetch(`https://sapphire-elephant-vest.cyclic.app/employerauth/register`,{
           method:"POST",
           headers:{
             "Content-Type":"application/json"
@@ -54,7 +58,15 @@ import {
         .then((res)=>{
             setLoad(false);
             console.log(res);
-            alert("SignUp successful")
+            if(res.token){
+                EmployerLogin()
+                navigate("/employers")
+            }
+            else{
+                alert("Wrong Credentials !")
+            }
+            
+            
         })
         .catch((err)=>{
             console.log(err.message);
@@ -64,9 +76,10 @@ import {
   
   
     return (
+        <><Text fontSize={'40px'} as={'b'} display={load ? "block":"none"}>Loading...</Text>
       <Flex
         minH={'100vh'}
-       
+        display={load ? "none":"block"}
         align={'center'}
         justify={'center'}
         bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -87,23 +100,20 @@ import {
   
               <FormControl >
                 <FormLabel>Username</FormLabel>
-                <Input placeholder='Username' onChange={handleChange} name="username" value={username} />
+                <Input placeholder='Username' onChange={handleChange} name="username" value={username} isRequired={true} />
               </FormControl>
   
-              <FormControl>
-                <FormLabel>Avatar</FormLabel>
-                <Input placeholder='Avatar' onChange={handleChange} name="avatar" value={avatar} />
-              </FormControl>
+             
   
               <FormControl id="email">
                 <FormLabel>Email address</FormLabel>
-                <Input placeholder='Email'onChange={handleChange} name="email" value={email} />
+                <Input placeholder='Email'onChange={handleChange} name="email" value={email} isRequired={true} />
               </FormControl>
   
   
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input type="password" placeholder='Password' onChange={handleChange} name="password" value={password} />
+                <Input type="password" placeholder='Password' onChange={handleChange} name="password" value={password} isRequired={true} />
               </FormControl>
   
   
@@ -116,7 +126,7 @@ import {
                   align={'start'}
                   justify={'space-between'}>
                   <Checkbox>Remember me</Checkbox>
-                  <Text color={'blue.400'}>Forgot password?</Text>
+                  <Link href='/employlogin'><Text color={'blue.400'}>Go to employer Login page</Text></Link>
                 </Stack>
                 <Button
                   bg={'blue.400'}
@@ -135,5 +145,6 @@ import {
           </Box>
         </Stack>
       </Flex>
+                      </>
     )
   }

@@ -25,6 +25,7 @@ export default function EmployLogin() {
     const {Employstate,EmployerLogin,EmployerLogout}=useContext(EmployerAuthContext);
     const [formState, setFormState]=useState(initState);
     const {email,password}=formState;
+    const [load, setLoad]=useState(false);
     const navigate=useNavigate()
 
     const handleChange=(e)=>{
@@ -32,20 +33,23 @@ export default function EmployLogin() {
     }
 
     const handleLogin=()=>{
-        EmployerLogin()
-        navigate("/employers")
-    //   postData(formState);
-    //     setFormState(initState)
-        
+        if(email && password){
+            postData(formState);
+        }
+        else{
+            alert("Invalid Input !")
+        }
+        setFormState(initState)
     }
 
     const handleLogOut=()=>{
         EmployerLogout()
+        alert("LogOut Successfully !")
     }
-   
-    const postData=(data)=>{
  
-      fetch(`https://cute-rose-eagle-cuff.cyclic.cloud/authentication/login`,{
+    const postData=(data)=>{
+        setLoad(true)
+      fetch(`https://sapphire-elephant-vest.cyclic.app/employerauth/login`,{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
@@ -54,25 +58,32 @@ export default function EmployLogin() {
       })
       .then(res=>res.json())
       .then((res)=>{
-          
-          console.log(res);
-        //   LoginFromAuth()
-          alert("login successful")
+        setLoad(false);
+        if(res.token){
+            setLoad(false);
+            EmployerLogin()
+            navigate("/employers")
+        }
+        else{
+            alert("Wrong Credentials !")
+        }
+        console.log(res);
       })
       .catch((err)=>{
           console.log(err.message);
-  
+          setLoad(false);
       })
      }
 
     
 
   return (
+    <><Text fontSize={'40px'} as={'b'} display={load ? "block":"none"}>Loading...</Text>
     <Flex
       minH={'100vh'}
       align={'center'}
       justify={'center'}
-   
+      display={load ? "none":"block"}
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
@@ -92,7 +103,7 @@ export default function EmployLogin() {
 
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" placeholder='Email'onChange={handleChange} name="email" value={email} />
+              <Input type="email" placeholder='Email'onChange={handleChange} name="email" value={email}  />
             </FormControl>
 
             <FormControl id="password">
@@ -107,7 +118,7 @@ export default function EmployLogin() {
                 align={'start'}
                 justify={'space-between'}>
                 <Checkbox>Remember me</Checkbox>
-                <Link href='/employsignup'><Text color={'blue.400'}>Go to SignUp  page</Text></Link>
+                <Link href='/employsignup'><Text color={'blue.400'}>Go to employer SignUp page</Text></Link>
                 
               </Stack>
               <Button
@@ -136,5 +147,6 @@ export default function EmployLogin() {
         </Box>
       </Stack>
     </Flex>
+                </>
   )
 }

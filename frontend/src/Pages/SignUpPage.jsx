@@ -10,13 +10,15 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  Link
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../Components/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const initState={
-    username:"",avatar:"",email:"",password:""
+    username:"",email:"",password:""
 }
 
 export default function SignUpPage() {
@@ -24,6 +26,7 @@ export default function SignUpPage() {
     const [formState, setFormState]=useState(initState);
     const { username,avatar,email,password}=formState;
     const [load, setLoad]=useState(false);
+    const navigate=useNavigate()
 
     const handleChange=(e)=>{
         setFormState({...formState, [e.target.name]:e.target.value});
@@ -31,14 +34,20 @@ export default function SignUpPage() {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        postData(formState);
+        if(formState.username && formState.email && formState.password){
+          postData(formState);
+        }
+        else{
+          alert("Invalid Input")
+        }
         setFormState(initState)
+        
     }
 
 
     const postData=(data)=>{
       setLoad(true);
-      fetch(`https://cute-rose-eagle-cuff.cyclic.cloud/authentication/register`,{
+      fetch(`https://sapphire-elephant-vest.cyclic.app/userauth/register`,{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
@@ -49,7 +58,14 @@ export default function SignUpPage() {
       .then((res)=>{
           setLoad(false);
           console.log(res);
-          alert("SignUp successful")
+          if(res.token){
+            LoginFromAuth()
+            navigate("/jobs")
+          }
+          else{
+            alert("Wrong Credentials !")
+          }
+          
       })
       .catch((err)=>{
           console.log(err.message);
@@ -58,10 +74,11 @@ export default function SignUpPage() {
      }
 
 
-  return (
+  return  (
+    <><Text fontSize={'40px'} as={'b'} display={load ? "block":"none"}>Loading...</Text>
     <Flex
       minH={'100vh'}
-     
+      display={load ? "none":"block"}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -85,10 +102,7 @@ export default function SignUpPage() {
               <Input placeholder='Username' onChange={handleChange} name="username" value={username} />
             </FormControl>
 
-            <FormControl>
-              <FormLabel>Avatar</FormLabel>
-              <Input placeholder='Avatar' onChange={handleChange} name="avatar" value={avatar} />
-            </FormControl>
+          
 
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
@@ -111,7 +125,7 @@ export default function SignUpPage() {
                 align={'start'}
                 justify={'space-between'}>
                 <Checkbox>Remember me</Checkbox>
-                <Text color={'blue.400'}>Forgot password?</Text>
+                <Link href='/userlogin'><Text color={'blue.400'}>Go to Login page</Text></Link>
               </Stack>
               <Button
                 bg={'blue.400'}
@@ -130,5 +144,7 @@ export default function SignUpPage() {
         </Box>
       </Stack>
     </Flex>
+    </>
   )
+              
 }
