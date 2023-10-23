@@ -17,6 +17,7 @@ const jobSchema=mongoose.Schema({
     industryType:String,
     department:String,
     employmentType:String, 
+    logourl:String, 
 })
 
 const JobModel=mongoose.model("job",jobSchema)
