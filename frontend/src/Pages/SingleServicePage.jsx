@@ -3,24 +3,6 @@ import {Text,Image ,Button,Link,Box } from '@chakra-ui/react';
 import Styles from "../Styles/Jobs.module.css";
 
 
-const data={
-    companyName:"",
-    aboutCompany:"",
-    companyAddress:"",
-    companyWebsite:"",
-    role:"",
-    experience:"",
-    salary:"",
-    location:"",
-    date:"",
-    type:"",
-    skill:"",
-    highlights:"",
-    description:"",
-    industryType:"",
-    department:"",
-    employmentType:"", 
-}
 
 
 function SingleServicePage() {

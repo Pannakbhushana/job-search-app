@@ -14,28 +14,33 @@ import {
   Link
 } from '@chakra-ui/react';
 import { useContext } from 'react';
-import { AuthContext } from '../Components/AuthContext';
+import { EmployerAuthContext } from '../Components/EmployerAuthContext';
+import { useNavigate } from 'react-router-dom';
+
 const initState={
     email:"",password:""
 }
 
-export default function LoginPage() {
-    const {state,LoginFromAuth,logoutFromAuth}=useContext(AuthContext);
+export default function EmployLogin() {
+    const {Employstate,EmployerLogin,EmployerLogout}=useContext(EmployerAuthContext);
     const [formState, setFormState]=useState(initState);
     const {email,password}=formState;
+    const navigate=useNavigate()
 
     const handleChange=(e)=>{
         setFormState({...formState, [e.target.name]:e.target.value});
     }
 
     const handleLogin=()=>{
-      postData(formState);
-        setFormState(initState)
+        EmployerLogin()
+        navigate("/employers")
+    //   postData(formState);
+    //     setFormState(initState)
         
     }
 
     const handleLogOut=()=>{
-        logoutFromAuth()
+        EmployerLogout()
     }
    
     const postData=(data)=>{
@@ -51,7 +56,7 @@ export default function LoginPage() {
       .then((res)=>{
           
           console.log(res);
-          LoginFromAuth()
+        //   LoginFromAuth()
           alert("login successful")
       })
       .catch((err)=>{
@@ -59,6 +64,8 @@ export default function LoginPage() {
   
       })
      }
+
+    
 
   return (
     <Flex
@@ -69,7 +76,7 @@ export default function LoginPage() {
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Login to your account</Heading>
+          <Heading fontSize={'4xl'}>Employer Login </Heading>
          
         </Stack>
         <Box
@@ -100,7 +107,7 @@ export default function LoginPage() {
                 align={'start'}
                 justify={'space-between'}>
                 <Checkbox>Remember me</Checkbox>
-                <Link href='/usersignup'><Text color={'blue.400'}>Go to SignUp  page</Text></Link>
+                <Link href='/employsignup'><Text color={'blue.400'}>Go to SignUp  page</Text></Link>
                 
               </Stack>
               <Button

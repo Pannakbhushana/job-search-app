@@ -6,7 +6,7 @@ import {Text  } from '@chakra-ui/react'
 const paths=[
 {title:"Jobs",path:"/jobs"},
 ,{title:"Employer",path:"/employers"},
-{title:"Login/Register",path:"/userlogin"}
+{title:"Login/SignUp",path:"/userlogin"}
 ]
 
 function Navbar() {

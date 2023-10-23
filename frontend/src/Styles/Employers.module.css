@@ -1,0 +1,8 @@
+.container{
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 2%;
+    min-height: 500px;
+    padding: 50px;
+}
