@@ -2,30 +2,17 @@ import React, { useEffect, useState } from 'react';
 import {Text,Image ,Button,Link,Box } from '@chakra-ui/react';
 import Styles from "../Styles/Jobs.module.css";
 import {useParams} from "react-router-dom";
+import { useContext } from 'react';
+import { AuthContext } from '../Components/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import {Alert,AlertIcon,AlertTitle,AlertDescription} from '@chakra-ui/react'
 
-const initState={
-    // companyName:"",
-    aboutCompany:"",
-    companyAddress:"",
-    companyWebsite:"",
-    // role:"",
-    // experience:"",
-    // salary:"",
-    // location:"",
-    // date:"",
-    // type:"",
-    // skill:"",
-    highlights:"",
-    // description:"",
-    industryType:"",
-    department:"",
-    employmentType:"",
-    logourl:"" 
-   }
 
 function SingleServicePage() {
     const [data, setData]=useState({});
     const [load, setLoad]=useState(false);
+    const {state}=useContext(AuthContext);
+    const navigate=useNavigate();
     const {id}=useParams()
 
     useEffect(()=>{
@@ -47,10 +34,20 @@ function SingleServicePage() {
             setLoad(false);
         })
        }
+
+      
+
+       const handleApply=()=>{
+            alert("Application Submitted")
+       }
+
+       const handleSave=()=>{
+        alert("Application Saved !")
+        
+       }
     
   return load ? <Text fontSize={'40px'} as={'b'} >Loading...</Text> :  (
-    <div className={Styles.container}>
-     
+    <div className={Styles.container}>     
      <div className={Styles.leftContainer} >
       
         <div className={Styles.leftChild} >
@@ -75,9 +72,9 @@ function SingleServicePage() {
             </div>
           
             <div className={Styles.applySection}>
-                <Button colorScheme='teal' size='lg' w='150px' borderRadius='50px' variant='outline' >Save</Button>
+                <Button colorScheme='teal' size='lg' w='150px' borderRadius='50px' variant='outline' onClick={handleSave} >Save</Button>
                 <Box w='50px'></Box>
-                <Button colorScheme='teal' size='lg' w='150px' borderRadius='50px'>Apply</Button>
+                <Button colorScheme='teal' size='lg' w='150px' borderRadius='50px' onClick={handleApply}>Apply</Button>
             </div>
         </div>
      

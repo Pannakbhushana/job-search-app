@@ -19,15 +19,17 @@ const initState={
     industryType:"",
     department:"",
     employmentType:"", 
+    logourl:""
 }
 
 
 function EmployersPage() {
     const [formState, setFormState]=useState(initState);
+    const [load, setLoad]=useState(false);
+
     const {companyName,aboutCompany,companyAddress,companyWebsite,role,
            experience,salary,location,date,type,skill,highlights,
-           description,industryType,department,employmentType
-    }=formState;
+           description,industryType,department,employmentType,logourl}=formState;
 
     const handleChange=(e)=>{
         setFormState({...formState, [e.target.name]:e.target.value});
@@ -35,10 +37,33 @@ function EmployersPage() {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        console.log(formState);
+        postData(formState);
+        setFormState(initState)
     }
 
-  return (
+
+    const postData=(data)=>{
+        setLoad(true);
+        fetch(`https://sapphire-elephant-vest.cyclic.app/job/add`,{
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify(data)
+        })
+        .then(res=>res.json())
+        .then((res)=>{
+            setLoad(false);
+            console.log(res);
+            alert("Job Posted Successfully !")
+        })
+        .catch((err)=>{
+            console.log(err.message);
+            setLoad(false);
+        })
+       }
+
+  return load ? <Text fontSize={'40px'} as={'b'} >Loading...</Text> : (
     <div>
         <br />
         <br />
@@ -107,6 +132,10 @@ function EmployersPage() {
                     <br />
 
                 <Input type='text' placeholder='employmentType' name='employmentType' value={employmentType} onChange={handleChange} />
+                    <br />
+                    <br />
+
+                <Input type='text' placeholder='Logo Url' name='logourl' value={logourl} onChange={handleChange} />
                     <br />
                     <br />
             

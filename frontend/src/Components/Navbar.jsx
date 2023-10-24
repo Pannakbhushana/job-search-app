@@ -18,7 +18,7 @@ function Navbar() {
       {paths.map((el,i)=>{
         return <NavLink key={i} to={el.path} className={({isActive})=>{
             return isActive ? Styles.active :Styles.default
-        }}>{el.title}</NavLink>
+        }}><Text as={'b'} >{el.title}</Text></NavLink>
       })}
     </div>
   )
