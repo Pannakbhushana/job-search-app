@@ -1,18 +1,5 @@
 import React, { useState } from 'react'
-import {
-  Flex,
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Checkbox,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  Link
-} from '@chakra-ui/react';
+import {Flex,Box,FormControl,FormLabel,Input,Checkbox,Stack,Button,Heading,Text,useColorModeValue,Link} from '@chakra-ui/react';
 import { useContext } from 'react';
 import { AuthContext } from '../Components/AuthContext';
 import { useNavigate } from 'react-router-dom';
