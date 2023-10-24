@@ -3,12 +3,15 @@ import {Text,Image ,Button,Link } from '@chakra-ui/react';
 import Styles from "../Styles/Jobs.module.css";
 import {useDispatch,useSelector} from "react-redux";
 import { getTodoSuccessAction } from '../Redux/action';
+import {useNavigate} from "react-router-dom";
 
 
 
 function JobPage() {
     const [load, setLoad]=useState(false);
     const [page, setPage]=useState(1);
+    const navigate=useNavigate()
+    
     const {data}=useSelector((store)=>{
         return store;
     })
@@ -49,8 +52,11 @@ function JobPage() {
      
      <div className={Styles.leftContainer} >
 
-        {data.length && data.map((el)=>{
-            return  <Link href={`/jobs/${el._id}`} key={el._id}>
+     {data.length && data.map((el)=>{
+            return  <div key={el._id} style={{cursor:"pointer"}} onClick={()=>{
+                navigate(`/singlepage/${el._id}`)
+            }}>
+                
             <div className={Styles.leftChild} >
                 <div style={{display:"flex",width:"100%",justifyContent:"space-around"}}>
                     <div style={{width:'70%'}}>
@@ -72,7 +78,8 @@ function JobPage() {
                     </div>
                 </div>
             </div>
-            </Link>
+           
+            </div>
         })}
        
      </div>
