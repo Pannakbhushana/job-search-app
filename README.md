@@ -2,8 +2,42 @@
 Beekin-Job is your go-to job search app, streamlining the process of finding your ideal job. With smart filters and instant updates, discover tailored job listings effortlessly. Your future career starts here.
 
 # Tech Stack
-#### BackEnd: Node.js, Express.js, Mongodb, Mongoose, JavaScript
 #### FrontEnd : React, Redux, Chakra Ui, Css, JavaScript
+#### BackEnd: Node.js, Express.js, Mongodb, Mongoose, JavaScript
+
+# FrontEnd
+# Workflow Of the website
+## Home Page
+![Screenshot (154)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/2222d127-33ac-441a-b486-f10780ed1b62)
+
+
+
+# Search Job
+![Screenshot (155)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/a5c31448-9be5-468d-8209-ccc504cb79d7)
+
+
+
+# Browse Jobs
+![Screenshot (156)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/49915e41-a410-49a0-92e7-ddf57fd1597b)
+
+
+
+# Single Product Page
+![Screenshot (160)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/d1dde915-d033-47d4-895e-6bc4d5b8d3e3)
+
+# Employer Page
+### In this page Employer can post new jobs
+![Screenshot (157)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/aa27ec88-0556-4d74-b63c-40a58b12abc4)
+
+
+# Login Page
+
+![Screenshot (158)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/0c343bf6-6566-43f2-9390-c2b8794f0ce6)
+
+# SignUp Page
+![Screenshot (159)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/9c48df7a-f4c7-412a-8eac-fa2fab12d8ad)
+
+
 
 # Back_End
 ## API Documentation
@@ -154,37 +188,3 @@ Response:
 
 Status: 200 OK
 Body: Array of job objects for the specified page and limit
-
-
-# FrontEnd
-# Workflow Of the website
-## Home Page
-![Screenshot (154)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/2222d127-33ac-441a-b486-f10780ed1b62)
-
-
-
-# Search Job
-![Screenshot (155)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/a5c31448-9be5-468d-8209-ccc504cb79d7)
-
-
-
-# Browse Jobs
-![Screenshot (156)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/49915e41-a410-49a0-92e7-ddf57fd1597b)
-
-
-
-# Single Product Page
-![Screenshot (160)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/d1dde915-d033-47d4-895e-6bc4d5b8d3e3)
-
-# Employer Page
-### In this page Employer can post new jobs
-![Screenshot (157)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/aa27ec88-0556-4d74-b63c-40a58b12abc4)
-
-
-# Login Page
-
-![Screenshot (158)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/0c343bf6-6566-43f2-9390-c2b8794f0ce6)
-
-# SignUp Page
-![Screenshot (159)](https://github.com/Pannakbhushana/job-search-app/assets/112654188/9c48df7a-f4c7-412a-8eac-fa2fab12d8ad)
-
