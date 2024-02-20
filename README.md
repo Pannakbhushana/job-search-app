@@ -4,7 +4,7 @@ Beekin-Job is your go-to job search app, streamlining the process of finding you
 # Tech Stack
 #### FrontEnd : React, Redux, Chakra Ui, Css, JavaScript
 #### BackEnd: Node.js, Express.js, Mongodb, Mongoose, JavaScript
-
+#### Go Live :- https://hilarious-madeleine-12f733.netlify.app/
 # FrontEnd
 # Workflow Of the website
 ## Home Page
